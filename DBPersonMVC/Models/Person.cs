@@ -11,5 +11,9 @@ namespace DBPersonMVC.Models
         public string? PhoneNumber { get; set; }
         public int CityId { get; set; }
         
+        public List<City> Cities { get; set; } = new List<City>();
+        public List<Country> Countries { get; set; } = new List<Country>();
+    
+        public List<Language> Languages { get; set; } = new List<Language>(); 
     }
 }

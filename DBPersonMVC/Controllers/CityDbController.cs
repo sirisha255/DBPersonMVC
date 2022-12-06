@@ -2,7 +2,7 @@
 
 namespace DBPersonMVC.Controllers
 {
-    public class PersonController : Controller
+    public class CityDbController : Controller
     {
         public IActionResult Index()
         {

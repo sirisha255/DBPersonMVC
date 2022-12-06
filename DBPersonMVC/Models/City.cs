@@ -11,6 +11,8 @@ namespace DBPersonMVC.Models
         public List<Person>? People { get; set; }
         public int? CountryId { get; set; }
         public Country? Country { get; set; }
+         
+        public List<Person> people { get; set; } = new List<Person>(); 
 
     }
 }
