@@ -6,16 +6,16 @@ namespace DBPersonMVC.Controllers
 {
     public class PersonDbController : Controller
     {
-        readonly PeopleDbContext _dbpeople;
-        public PersonDbController(PeopleDbContext dbpeople)
+        readonly PeopleDbContext _person;
+        public PersonDbController(PeopleDbContext person)
         {
-            _dbpeople = dbpeople;
+            _person = person;
         
         }
         [HttpGet]
         public IActionResult Index()
         {
-            return View(_dbpeople.People.ToList());
+            return View(_person.People.ToList());
         }
         [HttpGet]
         public IActionResult Create()
@@ -25,12 +25,12 @@ namespace DBPersonMVC.Controllers
         [HttpPost]
         public IActionResult Create(Person person)
         {
-            ModelState.Remove("id");
+            ModelState.Remove("Id");
             if (ModelState.IsValid) 
             {
                  person.Id = person.Id;
-                _dbpeople.People.Add(person);
-                _dbpeople.SaveChanges();
+                _person.People.Add(person);
+                _person.SaveChanges();
             }
             return RedirectToAction("Index");
         }
