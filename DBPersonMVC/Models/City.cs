@@ -8,11 +8,11 @@ namespace DBPersonMVC.Models
         public int Id { get; set; }
         public string? CityName { get; set; }
        
-        public List<Person>? People { get; set; }
+        public List<Person>? People { get; set; } = new List<Person>();
         public int? CountryId { get; set; }
         public Country? Country { get; set; }
          
-        public List<Person> people { get; set; } = new List<Person>(); 
+       // public List<Person> persons { get; set; } = new List<Person>(); 
 
     }
 }
