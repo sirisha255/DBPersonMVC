@@ -22,6 +22,36 @@ namespace DBPersonMVC.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("CityPerson", b =>
+                {
+                    b.Property<int>("CitiesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PeopleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CitiesId", "PeopleId");
+
+                    b.HasIndex("PeopleId");
+
+                    b.ToTable("CityPerson");
+                });
+
+            modelBuilder.Entity("CountryPerson", b =>
+                {
+                    b.Property<int>("CountriesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PeopleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CountriesId", "PeopleId");
+
+                    b.HasIndex("PeopleId");
+
+                    b.ToTable("CountryPerson");
+                });
+
             modelBuilder.Entity("DBPersonMVC.Models.City", b =>
                 {
                     b.Property<int>("Id")
@@ -90,9 +120,6 @@ namespace DBPersonMVC.Migrations
                     b.Property<int>("CityId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -101,11 +128,52 @@ namespace DBPersonMVC.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CityId");
-
-                    b.HasIndex("LanguageId");
-
                     b.ToTable("People");
+                });
+
+            modelBuilder.Entity("LanguagePerson", b =>
+                {
+                    b.Property<int>("LanguagesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PeopleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LanguagesId", "PeopleId");
+
+                    b.HasIndex("PeopleId");
+
+                    b.ToTable("LanguagePerson");
+                });
+
+            modelBuilder.Entity("CityPerson", b =>
+                {
+                    b.HasOne("DBPersonMVC.Models.City", null)
+                        .WithMany()
+                        .HasForeignKey("CitiesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DBPersonMVC.Models.Person", null)
+                        .WithMany()
+                        .HasForeignKey("PeopleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CountryPerson", b =>
+                {
+                    b.HasOne("DBPersonMVC.Models.Country", null)
+                        .WithMany()
+                        .HasForeignKey("CountriesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DBPersonMVC.Models.Person", null)
+                        .WithMany()
+                        .HasForeignKey("PeopleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DBPersonMVC.Models.City", b =>
@@ -117,32 +185,24 @@ namespace DBPersonMVC.Migrations
                     b.Navigation("Country");
                 });
 
-            modelBuilder.Entity("DBPersonMVC.Models.Person", b =>
+            modelBuilder.Entity("LanguagePerson", b =>
                 {
-                    b.HasOne("DBPersonMVC.Models.City", null)
-                        .WithMany("People")
-                        .HasForeignKey("CityId")
+                    b.HasOne("DBPersonMVC.Models.Language", null)
+                        .WithMany()
+                        .HasForeignKey("LanguagesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DBPersonMVC.Models.Language", null)
-                        .WithMany("People")
-                        .HasForeignKey("LanguageId");
-                });
-
-            modelBuilder.Entity("DBPersonMVC.Models.City", b =>
-                {
-                    b.Navigation("People");
+                    b.HasOne("DBPersonMVC.Models.Person", null)
+                        .WithMany()
+                        .HasForeignKey("PeopleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DBPersonMVC.Models.Country", b =>
                 {
                     b.Navigation("Cities");
-                });
-
-            modelBuilder.Entity("DBPersonMVC.Models.Language", b =>
-                {
-                    b.Navigation("People");
                 });
 #pragma warning restore 612, 618
         }

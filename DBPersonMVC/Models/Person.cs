@@ -9,7 +9,7 @@ namespace DBPersonMVC.Models
         public string? Name { get; set; }
         public string? City { get; set; }
         public string? PhoneNumber { get; set; }
-        public int CityId { get; set; }
+        //public int CityId { get; set; }
         
         public List<City> Cities { get; set; } = new List<City>();
         public List<Country> Countries { get; set; } = new List<Country>();
